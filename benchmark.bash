@@ -43,7 +43,7 @@ benchmark() {
   done
 
   printf "\\n✅ Average of %0.1fms over %d runs\\n\\n" \
-    "$(echo "$total / $counter" | bc)" "$counter"
+    "$(echo "$total / ${#counter[@]}" | bc)" "${#counter[@]}"
 }
 
 instance_info() {
