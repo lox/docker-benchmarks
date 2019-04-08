@@ -10,9 +10,6 @@ image_sizes=(64 512 1024)
 
 iterations=3
 
-echo "~~~ Instance info"
-instance_info
-
 echo "+++ Benchmarking :docker: build performance"
 
 for size in "${image_sizes[@]}" ; do
