@@ -43,7 +43,7 @@ benchmark() {
   done
 
   printf "\\n✅ Average of %0.1fms over %d runs\\n\\n" \
-    "$(echo "$total / ${#counter[@]}" | bc)" "${#counter[@]}"
+    "$(echo "$total / ${#times[@]}" | bc)" "${#times[@]}"
 }
 
 instance_info() {
@@ -57,7 +57,7 @@ instance_info() {
   lsblk
 
   echo "CPU info:"
-  printf "Vendor: %s\\n" "$(grep 'vendor' /proc/cpuinfo | uniq)"
-  printf "Model Name: %s\\n" "$(grep 'model name' /proc/cpuinfo | uniq)"
-  printf "Processor Count: %s\\n" "$(grep -c 'processor' /proc/cpuinfo)"
+  grep 'vendor' /proc/cpuinfo | uniq
+  grep 'model name' /proc/cpuinfo | uniq
+  printf "count %s\\n" "$(grep -c 'processor' /proc/cpuinfo)"
 }
