@@ -50,3 +50,9 @@ benchmark() {
   printf "\\n✅ Average of %0.1fms over %d runs\\n\\n" \
     "$(echo "$total / $count" | bc)" "$count"
 }
+
+instance_info() {
+  curl http://169.254.169.254/latest/meta-data/instance-type
+  lsblk
+  hwinfo --cpu
+}
