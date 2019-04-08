@@ -28,7 +28,7 @@ aws ecr get-login --region "$aws_region" --no-include-email | bash
 for size in "${image_sizes[@]}" ; do
   image_name="${image_name_base}-${size}"
   ecr_repository="${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/${image_name_base}"
-  tagged_image_name="${ecr_repository}:build_{BUILDKITE_BUILD_NUMBER:-dev}"
+  tagged_image_name="${ecr_repository}:build_${BUILDKITE_BUILD_NUMBER:-dev}"
 
   docker tag "$image_name" "$tagged_image_name"
 
