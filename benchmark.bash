@@ -15,10 +15,7 @@ date() {
 # the resulting timing in stopwatch_time
 stopwatch() {
   t1=$(date +%s.%N)
-  if ! output=$("$@" 2>&1) ; then
-    echo "$output" >&2
-    return 1
-  fi
+  "$@"
   t2=$(date +%s.%N)
   dt=$(echo "($t2 - $t1) * 1000" | bc)
   stopwatch_time="$(printf "%0.1f" "$dt")"
@@ -52,8 +49,16 @@ benchmark() {
 }
 
 instance_info() {
-  curl http://169.254.169.254/latest/meta-data/instance-type
+  instance_id=$(curl http://169.254.169.254/latest/meta-data/instance-type || true)
+
+  if [[ -n "$instance_id" ]] ; then
+    printf "Instance Type: %s\\n" "$instance_id"
+  fi
+
+  echo "Block info:"
   lsblk
+
+  echo "CPU info:"
   cat /proc/cpuinfo | grep 'vendor' | uniq
   cat /proc/cpuinfo | grep 'model name' | uniq
   cat /proc/cpuinfo | grep processor | wc -l

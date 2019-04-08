@@ -7,5 +7,6 @@ iterations=3
 echo "+++ Instance info"
 instance_info
 
+echo "+++ Benchmark Disk"
 benchmark "$iterations" dd if=/dev/zero of="$HOME/testfile" bs=1G count=1 oflag=direct
 rm "$HOME/testfile"
