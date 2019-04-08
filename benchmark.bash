@@ -15,7 +15,7 @@ date() {
 # the resulting timing in stopwatch_time
 stopwatch() {
   t1=$(date +%s.%N)
-  "$@"
+  "$@" &>/dev/null
   t2=$(date +%s.%N)
   dt=$(echo "($t2 - $t1) * 1000" | bc)
   stopwatch_time="$(printf "%0.1f" "$dt")"
@@ -44,6 +44,12 @@ benchmark() {
 
   printf "\\n✅ Average of %0.1fms over %d runs\\n\\n" \
     "$(echo "$total / ${#times[@]}" | bc)" "${#times[@]}"
+
+  printf "Command (%s) took an average of %0.1fms over %d runs" \
+    "$*" \
+    "$(echo "$total / ${#times[@]}" | bc)" \
+    "${#times[@]}" |
+    buildkite-agent annotate --style "success"
 }
 
 instance_info() {
