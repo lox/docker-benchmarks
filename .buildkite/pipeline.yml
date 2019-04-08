@@ -1,0 +1,13 @@
+steps:
+  - label: "Benchmark CPU"
+    command: ./benchmark-cpu.sh
+
+  - wait
+
+  - label: "Benchmark Disk"
+    command: ./benchmark-disk.sh
+
+  - wait
+
+  - label: "Benchmark Docker"
+    command: ./benchmark-docker.sh
