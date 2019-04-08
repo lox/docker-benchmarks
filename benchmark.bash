@@ -45,7 +45,7 @@ benchmark() {
   printf "\\n✅ Average of %0.1fms over %d runs\\n\\n" \
     "$(echo "$total / ${#times[@]}" | bc)" "${#times[@]}"
 
-  printf "- Command <code>%s</code> took an average of <strong>%0.1fms</strong> over %d runs\\n" \
+  printf -- "- Command <code>%s</code> took an average of <strong>%0.1fms</strong> over %d runs\\n" \
     "$*" \
     "$(echo "$total / ${#times[@]}" | bc)" \
     "${#times[@]}" |
