@@ -49,7 +49,7 @@ benchmark() {
     "$*" \
     "$(echo "$total / ${#times[@]}" | bc)" \
     "${#times[@]}" |
-    buildkite-agent annotate --style "success"
+    buildkite-agent annotate --append --style "success"
 }
 
 instance_info() {
