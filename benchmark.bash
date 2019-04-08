@@ -47,7 +47,7 @@ benchmark() {
 }
 
 instance_info() {
-  instance_id=$(curl http://169.254.169.254/latest/meta-data/instance-type || true)
+  instance_id=$(curl -q http://169.254.169.254/latest/meta-data/instance-type || true)
 
   if [[ -n "$instance_id" ]] ; then
     printf "Instance Type: %s\\n" "$instance_id"

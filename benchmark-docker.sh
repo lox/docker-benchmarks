@@ -10,7 +10,7 @@ image_sizes=(64 512 1024)
 
 iterations=3
 
-echo "+++ Instance info"
+echo "~~~ Instance info"
 instance_info
 
 echo "+++ Benchmarking :docker: build performance"

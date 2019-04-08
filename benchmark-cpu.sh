@@ -8,7 +8,7 @@ cpu_load() {
 
 iterations=3
 
-echo "+++ Instance info"
+echo "~~~ Instance info"
 instance_info
 
 echo "+++ Benchmark CPU"
