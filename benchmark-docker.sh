@@ -30,23 +30,23 @@ aws ecr get-login --region "$aws_region" --no-include-email | bash
 
 for size in "${image_sizes[@]}" ; do
   image_name="${image_name_base}-${size}"
-  ecr_repository="${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/${image_name_base}:latest"
+  ecr_repository="${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/${image_name_base}"
+  tagged_image_name="${ecr_repository}:build_{BUILDKITE_BUILD_NUMBER:-dev}"
 
-  docker tag "$image_name" "$ecr_repository"
+  docker tag "$image_name" "$tagged_image_name"
 
   echo "Pushing $ecr_repository"
-  benchmark 1 docker push "$ecr_repository"
+  benchmark 1 docker push "$tagged_image_name"
 
   echo "Removing local images and tags..."
   docker rmi -f "$image_name"
-  docker rmi -f "${ecr_repository}"
+  docker rmi -f "${tagged_image_name}"
 
   echo "Pulling $ecr_repository"
-  benchmark 1 docker pull "$ecr_repository"
+  benchmark 1 docker pull "$tagged_image_name"
 
   echo "Removing local images and tags..."
-  docker rmi -f "$image_name"
-  docker rmi -f "${ecr_repository}"
+  docker rmi -f "${tagged_image_name}"
 done
 
 echo "~~~ Cleaning up"
