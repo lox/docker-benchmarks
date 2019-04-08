@@ -17,7 +17,7 @@ stopwatch() {
   t1=$(date +%s.%N)
   if ! output=$("$@" 2>&1) ; then
     echo "$output" >&2
-    exit 1
+    return 1
   fi
   t2=$(date +%s.%N)
   dt=$(echo "($t2 - $t1) * 1000" | bc)
